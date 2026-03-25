@@ -1,5 +1,6 @@
 ---
 tableCaptionLocation: bottom
+table-caption-position: below
 figureTitle: Рисунок
 tableTitle: Таблица
 ---
