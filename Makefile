@@ -1,27 +1,61 @@
 # Имя основного файла (без расширения)
 SRC = Argentina
-OUT = $(SRC).odt
+PRESENT = presentation
 
-# Шаблон
-TEMPLATE = Template.odt
+# Выходные файлы
+ODT = $(SRC).odt
+PPT = $(PRESENT).pptx
+PDF = $(SRC).pdf
+
+# Шаблоны
+TEMPLATE_ODT = Template.odt
+TEMPLATE_PPT = Template.pptx
 
 # Pandoc и фильтры
 PANDOC = pandoc
 FILTERS = --filter pandoc-crossref
 
-# Основная команда
-all: $(OUT)
+# =========================
+# Основные цели
+# =========================
 
-$(OUT): $(SRC).md
+all: odt ppt
+
+odt: $(ODT)
+ppt: $(PPT)
+pdf: $(PDF)
+
+# =========================
+# Сборка ODT
+# =========================
+
+$(ODT): $(SRC).md
 	$(PANDOC) $< -o $@ \
 	$(FILTERS) \
-	--reference-doc=$(TEMPLATE) \
+	--reference-doc=$(TEMPLATE_ODT) \
 	--toc \
 	--table-caption-position=below
 
+# =========================
+# Сборка презентации PPTX
+# =========================
+
+$(PPT): $(PRESENT).md
+	$(PANDOC) $< -o $@ 
+
+# =========================
+# Сборка PDF (опционально)
+# =========================
+
+$(PDF): $(SRC).md
+	$(PANDOC) $< -o $@
+
+# =========================
 # Очистка
+# =========================
+
 clean:
-	rm -f $(OUT)
+	rm -f $(ODT) $(PPT) $(PDF)
 
 # Пересборка
 rebuild: clean all
