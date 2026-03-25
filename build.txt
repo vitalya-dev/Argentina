@@ -1,0 +1,1 @@
+pandoc Argentina.md  -o Argentina.odt  --filter pandoc-crossref --reference-doc=Template.odt --toc --toc-depth 3 --number-sections
