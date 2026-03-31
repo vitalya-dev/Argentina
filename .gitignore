@@ -1,4 +1,2 @@
 package*
-*odt*
-*.pdf
-*.pptx
+node_modules/
